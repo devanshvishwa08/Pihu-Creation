@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pihu Creation — Style that speaks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2? family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211f1a;
+    --forest:#1c2b22;
+    --forest-deep:#132019;
+    --cream:#f6f1e7;
+    --cream-soft:#efe8da;
+    --clay:#a8586b;
+    --clay-soft:#c78394;
+    --line:#dcd3bf;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  img{max-width:100%;display:block;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--clay);
+    outline-offset:2px;
+  }
+
+  /* ===== Header ===== */
+  header{
+    background:var(--forest);
+    color:var(--cream);
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:40;
+  }
+  .header-row{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .icon-btn{
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--cream);
+    border-radius:50%;
+    transition:background .2s ease;
+  }
+  .icon-btn:hover{background:rgba(246,241,231,0.1);}
+  .icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;}
+  .brand{
+    text-align:center;
+  }
+  .brand .name{
+    font-size:1.6rem;
+    line-height:1;
+  }
+  .brand .tagline{
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:var(--clay-soft);
+    margin-top:3px;
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    background:var(--forest);
+    color:var(--cream);
+    padding:8px 20px 64px;
+  }
+  .hero-inner{
+    max-width:760px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    line-height:1.08;
+    margin-bottom:16px;
+  }
+  .hero p{
+    color:var(--cream-soft);
+    font-size:1.02rem;
+    max-width:480px;
+    margin:0 auto;
+  }
+  .hero-note{
+    display:inline-block;
+    margin-top:26px;
+    font-size:0.8rem;
+    color:var(--clay-soft);
+    border-top:1px solid rgba(246,241,231,0.2);
+    padding-top:14px;
+  }
+
+  /* ===== Search bar ===== */
+  .search-bar{
+    background:var(--forest);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .28s ease;
+  }
+  .search-bar.open{max-height:80px;}
+  .search-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px 16px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .search-inner input{
+    flex:1;
+    background:var(--cream);
+    border:none;
+    border-radius:100px;
+    padding:11px 18px;
+    font-size:0.92rem;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  .search-inner input:focus-visible{outline:2px solid var(--clay-soft);outline-offset:2px;}
+  .search-clear{
+    color:var(--cream-soft);
+    font-size:0.85rem;
+    white-space:nowrap;
+    padding:8px 6px;
+  }
+  .search-clear:hover{color:#fff;}
+  .no-results{
+    grid-column:1/-1;
+    text-align:center;
+    padding:40px 20px;
+    color:#8a836e;
+    font-size:0.92rem;
+  }
+
+  /* ===== Categories ===== */
+  .categories{
+    max-width:1200px;
+    margin:-32px auto 0;
+    padding:0 20px;
+    position:relative;
+    z-index:5;
+  }
+  .cat-row{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:8px;
+    box-shadow:0 12px 30px -18px rgba(28,43,34,0.4);
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .cat-row::-webkit-scrollbar{display:none;}
+  .cat-chip{
+    flex:0 0 auto;
+    padding:9px 18px;
+    border-radius:100px;
+    font-size:0.85rem;
+    color:var(--ink);
+    white-space:nowrap;
+    transition:background .2s ease, color .2s ease;
+  }
+  .cat-chip.active{
+    background:var(--forest);
+    color:var(--cream);
+  }
+  .cat-chip:not(.active):hover{background:var(--cream-soft);}
+
+  /* ===== Product grid ===== */
+  .catalog{
+    max-width:1200px;
+    margin:0 auto;
+    padding:56px 20px 80px;
+  }
+  .catalog-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .catalog-head h2{
+    font-size:1.6rem;
+  }
+  .catalog-head span{
+    font-size:0.85rem;
+    color:#6b6555;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:24px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .card-img{
+    aspect-ratio:1/1;
+    background:var(--cream-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#a49a80;
+    font-size:0.8rem;
+    text-align:center;
+    padding:16px;
+    overflow:hidden;
+    position:relative;
+  }
+  .card-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+  .stock-tag{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:var(--forest);
+    color:var(--cream);
+    font-size:0.68rem;
+    padding:4px 10px;
+    border-radius:100px;
+    z-index:2;
+  }
+  .card-body{
+    padding:16px 16px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+  .card-body h3{
+    font-size:1.02rem;
+    font-weight:500;
+  }
+  .card-body p{
+    font-size:0.85rem;
+    color:#6b6555;
+    flex:1;
+  }
+  .shop-btn{
+    margin-top:4px;
+    background:var(--clay);
+    color:#fff;
+    padding:10px 16px;
+    border-radius:4px;
+    text-align:center;
+    font-size:0.88rem;
+    font-weight:500;
+    transition:background .2s ease;
+  }
+  .shop-btn:hover{background:#8f4657;}
+
+  /* ===== Footer ===== */
+  footer{
+    background:var(--forest-deep);
+    color:var(--cream-soft);
+    padding:44px 20px 32px;
+    text-align:center;
+  }
+  footer .display{
+    color:var(--cream);
+    font-size:1.3rem;
+    margin-bottom:8px;
+  }
+  footer p{
+    font-size:0.88rem;
+    max-width:420px;
+    margin:0 auto 20px;
+  }
+  footer .contact-inline{
+    font-size:0.85rem;
+    color:var(--clay-soft);
+  }
+  footer .footnote{
+    margin-top:28px;
+    font-size:0.72rem;
+    color:#5f6a60;
+  }
+
+  /* ===== Contact side panel ===== */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(19,32,25,0.5);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:50;
+  }
+  .overlay.open{opacity:1;pointer-events:auto;}
+
+  .panel{
+    position:fixed;
+    top:0;left:0;
+    height:100%;
+    width:min(340px, 86vw);
+    background:var(--cream);
+    color:var(--ink);
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+    z-index:51;
+    display:flex;
+    flex-direction:column;
+    padding:26px 26px 30px;
+  }
+  .panel.open{transform:translateX(0);}
+  .panel-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:26px;
+  }
+  .panel-top h3{font-size:1.1rem;}
+  .panel-close{
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .panel-close:hover{background:var(--cream-soft);}
+  .panel-close svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.6;}
+
+  .panel-msg{
+    background:var(--forest);
+    color:var(--cream);
+    padding:16px;
+    border-radius:6px;
+    font-size:0.9rem;
+    margin-bottom:24px;
+    line-height:1.5;
+  }
+  .panel-msg strong{color:var(--clay-soft);}
+
+  .panel-item{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .panel-item svg{width:19px;height:19px;stroke:var(--forest);fill:none;stroke-width:1.6;margin-top:2px;flex-shrink:0;}
+  .panel-item .label{font-size:0.72rem;color:#8a836e;text-transform:none;}
+  .panel-item .value{font-size:0.95rem;font-weight:500;}
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:repeat(auto-fill, minmax(150px,1fr));gap:14px;}
+    .card-body{padding:12px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <button class="icon-btn" id="contactOpen" aria-label="Open contact panel">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke-linejoin="round"/><path d="M4 6l8 7 8-7" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="brand">
+      <div class="name display">Pihu Creation</div>
+      <div class="tagline">STYLE THAT SPEAKS</div>
+    </div>
+    <button class="icon-btn" id="searchToggle" aria-label="Search products" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="search-bar" id="searchBar">
+  <div class="search-inner">
+    <input type="text" id="searchInput" placeholder="Search products, e.g. kurti, saree..." aria-label="Search products">
+    <button class="search-clear" id="searchClear">Clear</button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Everyday wear, chosen&nbsp;with care.</h1>
+    <p>A small curated edit of women's clothing — kurtis, sarees, and everyday essentials. Tap a piece you like, and we'll take you straight to it.</p>
+    <div class="hero-note">Tap "Shop Now" on any piece to complete your purchase</div>
+  </div>
+</section>
+
+<div class="categories">
+  <div class="cat-row">
+    <button class="cat-chip active">All</button>
+    <button class="cat-chip">Kurtis</button>
+    <!-- <button class="cat-chip">Sarees</button> -->
+    <button class="cat-chip">Western</button>
+    <button class="cat-chip">Ethnic Sets</button>
+    <!-- <button class="cat-chip">Dupattas</button> -->
+  </div>
+</div>
+
+<main class="catalog">
+  <div class="catalog-head">
+    <h2>This week's edit</h2>
+    <span id="pieceCount">0 pieces</span>
+  </div>
+
+  <div class="grid" id="productGrid"></div>
+</main>
+
+<footer>
+  <div class="display">Pihu Creation</div>
+  <p>We're a small, growing edit of women's fashion. Have a question before you buy? We're happy to help.</p>
+  <div class="contact-inline">Contact us for great deals and discounts →</div>
+  <div class="footnote">© 2026 Pihu Creation. All products fulfilled through our partner store.</div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="panel" id="panel" aria-hidden="true">
+  <div class="panel-top">
+    <h3 class="display">Get in touch</h3>
+    <button class="panel-close" id="panelClose" aria-label="Close contact panel">
+      <svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+  </div>
+
+  <div class="panel-msg">
+    <strong>Contact us</strong> for great deals and discounts — we love hearing from our customers before they buy.
+  </div>
+
+  <div class="panel-item">
+    <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.4 2.1L8 9.9a16 16 0 006 6l1.4-1.4a2 2 0 012.1-.4c.9.3 1.8.5 2.7.6a2 2 0 011.8 2.2z"/></svg>
+    <div>
+      <div class="label">Mobile</div>
+      <div class="value">+91 93159 39868</div>
+    </div>
+  </div>
+
+  <div class="panel-item">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+    <div>
+      <div class="label">Email</div>
+      <div class="value">hello@pihustore.com</div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  // ============================================================
+  // PRODUCTS — add a new item here to add it to the site.
+  // - image: leave "" to show the placeholder box, or paste a photo URL
+  // - link: the SPECIFIC Meesho product page URL, not the homepage
+  // - category: must match one of the chip labels below (case-insensitive)
+  // ============================================================
+  const products = [
+    {
+      title: "Women Rajasthani Print Short Kurti & Pajama Set",
+      desc: "Traditional Rajasthani kurti-pajama set featuring vibrant prints, stylish borders, and a comfortable fit—perfect for daily wear and festive outings.",
+      stock: "₹373",
+      category: "Kurtis",
+      image: "rajasthani.png",
+      link: "https://www.meesho.com/womens-rajasthani-print-short-kurti-pajama-set/p/i16nh1"
+    },
+    {
+      title: "Adrika Alluring Kurti",
+      desc: "Women Elegant Straight Kurti with Lace Detailing & Mandarin Collar | Stylish Long Kurta",
+      stock: "₹311",
+      category: "Kurtis",
+      image: "adrika.png",
+      link: "https://www.meesho.com/womens-elegant-straight-kurti-with-lace-detailing-mandarin-collar-stylish-long-kurta/p/i0s1kh"
+    },
+    {
+      title: "Stylish Blue Floral Kurti",
+      desc: "Stylish blue floral short kurti with a printed cotton fabric and elegant neckline—perfect for comfortable daily wear.",
+      stock: "₹236",
+      category: "Kurtis",
+      image: "bluestylish.png",
+      link: "https://www.meesho.com/women-short-printed-kurti/p/i1sqv2"
+    },
+    {
+      title: "Women Cargo Pants",
+      desc: "Stylish grey women cargo pants with a wide-leg fit, elastic drawstring waist, and functional cargo pockets—perfect for casual, travel, and everyday wear.",
+      stock: "₹254",
+      category: "Western",
+      image: "cargo.png",
+      link: "https://www.meesho.com/women-corgo-pant/p/i107od"
+    },
+    {
+      title: "Elegant Mangalsutra Combo",
+      desc: "Elegant 2-piece mangalsutra combo featuring two beautiful traditional designs—lightweight, stylish, and perfect for everyday wear or gifting.",
+      stock: "₹315",
+      category: "Ethnic Sets",
+      image: "mangalsutra.png",
+      link: "https://www.meesho.com/2-pcs-womens-mangalsutra-combo/p/i23tyg"
+    },
+    {
+      title: "Stylish Short Kurti Combo",
+      desc: "Stylish short kurti combo available in 3 beautiful colors—pink, green, and yellow, featuring soft cotton fabric, a lightweight feel, and a comfortable 3/4-sleeve design. Perfect for everyday and casual wear.",
+      stock: "₹661",
+      category: "Kurtis",
+      image: "shortkurti.png",
+      link: "https://www.meesho.com/short-women-kurti-combo/p/i213mc"
+    }
+  ];
+
+  const grid = document.getElementById('productGrid');
+  const pieceCount = document.getElementById('pieceCount');
+
+  function cardHTML(p){
+    const imgContent = p.image
+      ? `<img src="${p.image}" alt="${p.title}">`
+      : `Product photo here`;
+    return `
+      <article class="card" data-category="${p.category.toLowerCase()}" data-title="${p.title.toLowerCase()}" data-desc="${p.desc.toLowerCase()}">
+        <div class="card-img">
+          <span class="stock-tag">${p.stock}</span>
+          ${imgContent}
+        </div>
+        <div class="card-body">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+          <a class="shop-btn" href="${p.link}" target="_blank" rel="noopener">Shop Now</a>
+        </div>
+      </article>`;
+  }
+
+  function renderProducts(){
+    grid.innerHTML = products.map(cardHTML).join('');
+    pieceCount.textContent = `${products.length} piece${products.length === 1 ? '' : 's'}`;
+  }
+  renderProducts();
+
+  let activeCategory = 'all';
+  let activeQuery = '';
+
+  function applyFilters(){
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const matchesCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
+      const matchesQuery = activeQuery === '' ||
+        card.dataset.title.includes(activeQuery) ||
+        card.dataset.desc.includes(activeQuery);
+      const show = matchesCategory && matchesQuery;
+      card.style.display = show ? '' : 'none';
+      if(show) visibleCount++;
+    });
+    let noRes = grid.querySelector('.no-results');
+    if(visibleCount === 0){
+      if(!noRes){
+        noRes = document.createElement('div');
+        noRes.className = 'no-results';
+        noRes.textContent = 'No products match your search.';
+        grid.appendChild(noRes);
+      }
+    } else if(noRes){
+      noRes.remove();
+    }
+  }
+
+  // Category chips
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCategory = chip.textContent.trim().toLowerCase();
+      applyFilters();
+    });
+  });
+
+  // Contact panel
+  const openBtn = document.getElementById('contactOpen');
+  const closeBtn = document.getElementById('panelClose');
+  const panel = document.getElementById('panel');
+  const overlay = document.getElementById('overlay');
+
+  function openPanel(){
+    panel.classList.add('open');
+    overlay.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    overlay.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+  }
+  openBtn.addEventListener('click', openPanel);
+  closeBtn.addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closePanel(); });
+
+  // Search
+  const searchToggle = document.getElementById('searchToggle');
+  const searchBar = document.getElementById('searchBar');
+  const searchInput = document.getElementById('searchInput');
+  const searchClear = document.getElementById('searchClear');
+
+  function openSearch(){
+    searchBar.classList.add('open');
+    searchToggle.setAttribute('aria-expanded','true');
+    setTimeout(() => searchInput.focus(), 260);
+  }
+  function closeSearch(){
+    searchBar.classList.remove('open');
+    searchToggle.setAttribute('aria-expanded','false');
+    searchInput.value = '';
+    activeQuery = '';
+    applyFilters();
+  }
+
+  searchToggle.addEventListener('click', () => {
+    const isOpen = searchBar.classList.contains('open');
+    isOpen ? closeSearch() : openSearch();
+  });
+  searchInput.addEventListener('input', e => {
+    activeQuery = e.target.value.trim().toLowerCase();
+    applyFilters();
+  });
+  searchClear.addEventListener('click', closeSearch);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && searchBar.classList.contains('open')) closeSearch();
+  });
+</script>
+
+</body>
+</html>
